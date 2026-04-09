@@ -48,7 +48,7 @@ pip install -r requirements.txt
 
 Run:
 
-uvicorn app.main --port 8080
+uvicorn app.main:app --port 8080
 
 👉 You should see a message like:
 “Application running on [http://127.0.0.1:8080”](http://127.0.0.1:8080”)
