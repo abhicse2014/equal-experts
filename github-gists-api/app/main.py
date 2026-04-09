@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import Response
 from app.github import get_user_gists
 from app.exceptions import (
     InvalidUsernameError,
@@ -46,3 +47,11 @@ def health():
     Health check endpoint.
     """
     return {"status": "ok"}
+
+
+@app.get("/favicon.ico")
+def favicon():
+    """
+    Prevent browser favicon requests from hitting main API.
+    """
+    return Response(status_code=204)
