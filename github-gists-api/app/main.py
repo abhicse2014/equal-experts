@@ -8,18 +8,25 @@ from app.exceptions import (
 )
 import logging
 
-# Setup basic logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="GitHub Gists API")
 
 
+# ✅ IMPORTANT: define this FIRST
+@app.get("/favicon.ico")
+def favicon():
+    return Response(status_code=204)
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
 @app.get("/{username}")
 def fetch_gists(username: str):
-    """
-    Fetch public GitHub gists for a given user.
-    """
     try:
         logger.info(f"Fetching gists for user: {username}")
 
@@ -39,19 +46,3 @@ def fetch_gists(username: str):
 
     except GitHubAPIError:
         raise HTTPException(status_code=502, detail="Upstream service error")
-
-
-@app.get("/health")
-def health():
-    """
-    Health check endpoint.
-    """
-    return {"status": "ok"}
-
-
-@app.get("/favicon.ico")
-def favicon():
-    """
-    Prevent browser favicon requests from hitting main API.
-    """
-    return Response(status_code=204)
