@@ -100,10 +100,6 @@ Run:
 
 docker build -t github-gists-api .
 
-Run:
-
-docker build -t github-gists-api .
-
 👉 What this command does:
 
 Docker reads the Dockerfile in your project
